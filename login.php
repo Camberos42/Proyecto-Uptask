@@ -1,5 +1,12 @@
-<?php include 'inc/funciones/funciones.php';
+<?php session_start();
+      include 'inc/funciones/funciones.php';
       include 'inc/templates/header.php';
+      
+      //Cerrar la sesion mandadno un array vacio (es decir que ya no tendra el cerrar_sesion en la url)
+      if(isset($_GET['cerrar_sesion'])){
+         $_SESSION = array();
+      }
+      //var_dump($_SESSION);
       
 ?>
 
@@ -20,7 +27,7 @@
             </div>
 
             <div class="campo">
-                <a href="crear-cuenta.html">Crea una cuenta nueva</a>
+                <a href="crear-cuenta.php">Crea una cuenta nueva</a>
             </div>
         </form>
     </div>

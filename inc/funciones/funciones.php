@@ -7,3 +7,4 @@ function obtenerPaginaActual(){
     $pagina = str_replace(".php","",$archivo);
     return $pagina;
 }
+

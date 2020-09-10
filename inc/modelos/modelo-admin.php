@@ -45,7 +45,7 @@
             //En caso de un error, tomar la excepcion
              //Se crea un arreglo asosiativo porque se retornara como json
             $respuesta = array(
-                'pass' => $e->getMessage()
+                'error' => $e->getMessage()
             );
 
         }

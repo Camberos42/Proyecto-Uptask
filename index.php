@@ -35,7 +35,7 @@
                         <input type="text" placeholder="Nombre Tarea" class="nombre-tarea">
                     </div>
                     <div class="campo enviar">
-                        <input type="hidden" id="<?php echo $id_proyecto; ?>" value="id_proyecto">
+                        <input type="hidden" id="id_proyecto" value="<?php echo $id_proyecto; ?>">
                         <input type="submit" class="boton nueva-tarea" value="Agregar">
                     </div>
                 </form>
@@ -52,16 +52,46 @@
 
             <div class="listado-pendientes">
                 <ul>
+                    <?php
+                    //Obtiene las tareas del proyecto actual
+                    $tareas = obtenerTareasProyecto($id_proyecto);
 
-                    <li id="tarea:<?php echo $tarea['id'] ?>" class="tarea">
-                        <p>Cambiar el Logotipo</p>
-                        <div class="acciones">
-                            <i class="far fa-check-circle"></i>
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </li>
+                    /*Ver las tareas  
+                    echo "<pre>";
+                        var_dump($tareas);
+                    echo "<pre>";*/
+
+                    if($tareas->num_rows > 0){
+                        //Si hay tareas
+                        foreach($tareas as $tarea){ ?>
+                            <li id="tarea:<?php echo $tarea['id'] ?>" class="tarea">
+                                <p><?php echo $tarea['nombre'] ?></p>
+                                <div class="acciones">
+                                    <?php //Usar operador ternario para comparar su estado y saber si activarle o
+                                     //no la clase que pintara el icono en verde?>
+                                    <i class="far fa-check-circle <?php echo ($tarea['estado']=== '1' ? 'completo' : '')?>"></i>
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                            </li>
+                        <?php }
+                    }else{
+                        echo "<p class='lista-vacia'>No hay tareas para este proyecto</p>";
+                    }
+                    ?>
+                    
                 </ul>
             </div>
+
+            <div class="avance">
+                <h2>Avance del proyecto:</h2>
+                <div class="barra-avance" id="barra-avance">
+                    <div class="porcentaje" id="porcentaje">
+                        <p id="porcentaje-texto"></p>
+                    </div>
+                </div>
+
+            </div>
+
         </main>
     </div>
     <!--.contenedor-->
